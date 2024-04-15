@@ -1,0 +1,17 @@
+﻿==============================
+== Pasos Realizados  ==
+==============================
+
+Fecha: 15/04/2024
+
+1. Creamos el proyecto ApiCentroMedico
+2. Instalamos Nuggets Entity / Core.
+3. Creamos la carpeta Models y sus modelos (Copia y Pega del proyecto CentroMedico).
+4. Creamos la carpeta Data y creamos su context (copia y pega del proyecto CentroMedico).
+5. Creamos la carpeta Repositories ,dentro su interfacez y clase RepositoryCentroMedico(copia y pega del proyecto CentroMedico).
+6. Creamos el controller de Api.
+7. Configuramos el program , appsetting y launchSetting para poder usar el swagger correctamente.
+
+8. Instalaremos el nugget NSwaggerAspNetCore para documentar las APIS.
+9. Configuramos el program para añadir las nuevas configuraciones OpenApiDocument.
+10. Agregamos al controller la documentación y lo modificamos segun la necesidad.

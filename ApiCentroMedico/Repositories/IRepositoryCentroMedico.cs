@@ -4,30 +4,30 @@ namespace ApiCentroMedico.Repositories
 {
     public interface IRepositoryCentroMedico
     {
-        public Usuario GetLogin(string correo, string contra);
+        public Usuario GetLogin(string correo, string contra); //Hecho
 
         public void CreatePaciente(string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int medico);
         public void CreateMedico(string nombre, string apellido, string correo, string contra, int especialidad);
-        public void CreateUsuario(string nombre, string apellido, string correo, string contra, int tipo);
+        public void CreateUsuario(string nombre, string apellido, string correo, string contra, int tipo); //Hecho
 
-        public void DeleteUsuario(int id, int tipo);
-        public void EditUsuario(int id, string nombre, string apellido, string correo, string contra, int estado, int tipo);
+        public void DeleteUsuario(int id, int tipo); //Hecho
+        public void EditUsuario(int id, string nombre, string apellido, string correo, string contra, int estado, int tipo); //Hecho
         public void EditMedico(int id, string nombre, string apellido, string correo, string contra, int especialidad, int estado, int tipo);
         public void EditPaciente(int id, string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int Estado, int tipo);
 
-        public List<UsuariosTipo> GetTipoUsuarios();
-        public List<Usuario> GetUsuariosTipo(int tipo);
-        public List<Usuario> GetUsuarios();
+        public List<UsuariosTipo> GetTipoUsuarios(); //Hecho
+        public List<Usuario> GetUsuariosTipo(int tipo); //Hecho
+        public List<Usuario> GetUsuarios(); //Hecho
         public List<Especialidades> GetEspecialidades();
 
-        public Paciente FindPaciente(int id);
-        public PacienteDetallado FindPacienteDetallado(int id);
-        public DatosExtrasPacientes FindDatosExtrasPacientes(int id);
+        public Paciente FindPaciente(int id); //Hecho
+        public PacienteDetallado FindPacienteDetallado(int id); //Hecho
+        public DatosExtrasPacientes FindDatosExtrasPacientes(int id); //Hecho
         public Medico FindMedico(int id);
-        public MedicoDetallado FindMedicoDetallado(int id); //Este metodo busca un medico de forma detallada
-        public MedicoDetallado GetMiMedico(int idPaciente); //Este metodo es para obtener los datos del medico asignado al paciente.
-        public Usuario FindUsuario(int id);
-        public UsuarioDetallado FindUsuarioDetallado(int id);
+        public MedicoDetallado FindMedicoDetallado(int id); 
+        public MedicoDetallado GetMiMedico(int idPaciente); 
+        public Usuario FindUsuario(int id); //Hecho
+        public UsuarioDetallado FindUsuarioDetallado(int id); //Hecho
 
         public CitaDetalladoModel GetAllCitas(int posicion);
         public Cita FindCita(int idCita);
@@ -61,7 +61,7 @@ namespace ApiCentroMedico.Repositories
         public List<MedicamentoYPaciente> GetAllMedicamentosPaciente(int idpaciente);
         public MedicamentoYPaciente FindMedicamentoYPaciente(int id);
         public void UpdateMedicamentoYPaciente(int id);
-        public Paciente FindPacienteDistintoDetallado(string nombre, string apellido, string correo);
+        public Paciente FindPacienteDistintoDetallado(string nombre, string apellido, string correo); //Hecho
         public MedicosPacientes GetMedicoPaciente(int idpaciente);
     }
 }

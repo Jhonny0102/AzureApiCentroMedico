@@ -5,20 +5,22 @@ namespace ApiCentroMedico.Repositories
     public interface IRepositoryCentroMedico
     {
         public Usuario GetLogin(string correo, string contra); //Hecho
+        public int GetIdMedico(int especialidad);
 
-        public void CreatePaciente(string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int medico);
+        public void CreatePaciente(string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int medico); //Hecho
         public void CreateMedico(string nombre, string apellido, string correo, string contra, int especialidad);
         public void CreateUsuario(string nombre, string apellido, string correo, string contra, int tipo); //Hecho
 
         public void DeleteUsuario(int id, int tipo); //Hecho
         public void EditUsuario(int id, string nombre, string apellido, string correo, string contra, int estado, int tipo); //Hecho
         public void EditMedico(int id, string nombre, string apellido, string correo, string contra, int especialidad, int estado, int tipo);
-        public void EditPaciente(int id, string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int Estado, int tipo);
+        public void EditPaciente(int id, string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int Estado, int tipo); //Hecho
 
         public List<UsuariosTipo> GetTipoUsuarios(); //Hecho
         public List<Usuario> GetUsuariosTipo(int tipo); //Hecho
         public List<Usuario> GetUsuarios(); //Hecho
         public List<Especialidades> GetEspecialidades();
+        public List<CitaDetalladaMedicos> FindCitasPaciente(int idpaciente); //Hecho
 
         public Paciente FindPaciente(int id); //Hecho
         public PacienteDetallado FindPacienteDetallado(int id); //Hecho
@@ -49,19 +51,19 @@ namespace ApiCentroMedico.Repositories
         public List<Estados> GetEstados();
         public string FindNombreEstado(int idEstado);
 
-        public void CreateCitaPaciente(DateTime fecha, TimeSpan hora, int idmedico, int idpaciente);
+        public void CreateCitaPaciente(DateTime fecha, TimeSpan hora, int idmedico, int idpaciente); //Hecho
         public int FindCitaDispo(int idmedico, DateTime fecha, TimeSpan hora);
         public List<CitaDetalladaMedicos> GetCitasDetalladasMedico(int idmedico);
         public List<CitaDetalladaMedicos> FindCitasDetalladasMedicos(int idmedico, DateTime fecha);
-        public List<CitaDetalladaMedicos> FindCitasDetalladasPAciente(int idpaciente, DateTime fechadesde, DateTime? fechahasta);
+        public List<CitaDetalladaMedicos> FindCitasDetalladasPAciente(int idpaciente, DateTime fechadesde, DateTime? fechahasta); //Hecho
         public List<SeguimientoCita> GetAllSeguimientoCita();
         public void UpdateCitaMedica(int idmedico, int idpaciente, int idcita, string comentario, int seguimiento, List<int> medicamentos);
         public List<Medicamentos> GetAllMedicamentos();
-        public void UpdateCitaDetalladaPaciente(int idcita, DateTime fecha, TimeSpan hora);
-        public List<MedicamentoYPaciente> GetAllMedicamentosPaciente(int idpaciente);
-        public MedicamentoYPaciente FindMedicamentoYPaciente(int id);
+        public void UpdateCitaDetalladaPaciente(int idcita, DateTime fecha, TimeSpan hora); //Hecho
+        public List<MedicamentoYPaciente> GetAllMedicamentosPaciente(int idpaciente); //Hecho
+        public MedicamentoYPaciente FindMedicamentoYPaciente(int id); //Hecho
         public void UpdateMedicamentoYPaciente(int id);
         public Paciente FindPacienteDistintoDetallado(string nombre, string apellido, string correo); //Hecho
-        public MedicosPacientes GetMedicoPaciente(int idpaciente);
+        public MedicosPacientes GetMedicoPaciente(int idpaciente); //Hecho
     }
 }

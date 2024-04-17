@@ -16,18 +16,46 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
-        /// Obtiene el conjunto de USUARIOS, tabla USUARIOS.
+        /// Obtiene la informacion extra de PACIENTE.
         /// </summary>
         /// <remarks>
-        /// Método para devolver todos las usuarios de la BBDD
+        /// Método para devolver datos extras de un paciente
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
-        //[HttpGet]
-        //[Route("[action]")]
-        //public async Task<ActionResult<List<Usuario>>> GetUsuarios()
-        //{
-        //    return await this.repo.GetUsuariosAsync();
-        //}
+        [HttpGet]
+        [Route("[action]/{idpaciente}")]
+        public async Task<ActionResult<DatosExtrasPacientes>> GetDatosExtrasPaciente(int idpaciente)
+        {
+            return this.repo.FindDatosExtrasPacientes(idpaciente);
+        }
+
+        /// <summary>
+        /// Obtiene la informacion sobre el MEDICO y PACIENTE.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver los datos del MEDICO y su PACIENTE
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]/{idpaciente}")]
+        public async Task<ActionResult<MedicosPacientes>> GetMedicoPaciente(int idpaciente)
+        {
+            return this.repo.GetMedicoPaciente(idpaciente);
+        }
+
+        /// <summary>
+        /// Obtiene la informacion sobre el MEDICO.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver los datos del MEDICO asigando al PACIENTE
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]/{idpaciente}")]
+        public async Task<ActionResult<MedicoDetallado>> GetMiMedico(int idpaciente)
+        {
+            return this.repo.GetMiMedico(idpaciente);
+        }
 
         /// <summary>
         /// Obtiene la informacion de PACIENTE, tabla USUARIOS(ROL PACIENTE).
@@ -37,53 +65,139 @@ namespace ApiCentroMedico.Controllers
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpGet]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<Paciente>> FindPaciente(int id)
+        [Route("[action]/{idpaciente}")]
+        public async Task<ActionResult<Paciente>> FindPaciente(int idpaciente)
         {
-            return this.repo.FindPaciente(id);
+            return this.repo.FindPaciente(idpaciente);
         }
 
         /// <summary>
-        /// Obtiene la toda la informacion detallada de PACIENTE, View .
+        /// Obtiene la toda la informacion detallada de PACIENTE.
         /// </summary>
         /// <remarks>
         /// Método para devolver la toda la informacion de un paciente detallado
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpGet]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<PacienteDetallado>> FindPacienteDetallado(int id)
+        [Route("[action]/{idpaciente}")]
+        public async Task<ActionResult<PacienteDetallado>> FindPacienteDetallado(int idpaciente)
         {
-            return this.repo.FindPacienteDetallado(id);
+            return this.repo.FindPacienteDetallado(idpaciente);
         }
 
         /// <summary>
-        /// Obtiene la informacion extra de PACIENTE, View .
+        /// Obtiene la informacion de Medicamentos y Pacientes. //Zona Medicamentos ***
         /// </summary>
         /// <remarks>
-        /// Método para devolver datos extras de un paciente
+        /// Método para devolver los datos de esa asiganacion de medicamento al paciente (Parametro = IDMEDICAMENTOYPACIENTE)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpGet]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<DatosExtrasPacientes>> GetDatosExtrasPaciente(int id)
+        public async Task<ActionResult<MedicamentoYPaciente>> FindMedicamentoYPaciente(int id)
         {
-            return this.repo.FindDatosExtrasPacientes(id);
+            return this.repo.FindMedicamentoYPaciente(id);
         }
 
         /// <summary>
-        /// Obtiene la informacion de PACIENTE, tabla USUARIOS.
+        /// Obtiene el conjunto de CITAS de un PACIENTE.
         /// </summary>
         /// <remarks>
-        /// Método para devolver los datos de un PACIENTE desde RECEPCION
+        /// Método para devolver las CITAS de un PACIENTE
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpGet]
-        [Route("[action]/{nombre}/{apellido}/{correo}")]
-        public async Task<ActionResult<Paciente>> GetPacienteRecepcion(string nombre, string apellido , string correo)
+        [Route("[action]/{idpaciente}")]
+        public async Task<ActionResult<List<CitaDetalladaMedicos>>> FindCitasPaciente(int idpaciente)
         {
-            return this.repo.FindPacienteDistintoDetallado(nombre,apellido,correo);
+            return this.repo.FindCitasPaciente(idpaciente);
         }
 
+        /// <summary>
+        /// Obtiene el conjunto de CITAS de un PACIENTE.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver las CITAS de un PACIENTE mediante un filtro de fechas 
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]/{idpaciente}/{fechadesde}/{fechahasta}")]
+        public async Task<ActionResult<List<CitaDetalladaMedicos>>> FindCitaDetalladaPaciente(int idpaciente, DateTime fechadesde, DateTime? fechahasta)
+        {
+            return this.repo.FindCitasDetalladasPAciente(idpaciente, fechadesde,  fechahasta);
+        }
+
+        /// <summary>
+        /// Obtiene el conjunto de MEDICAMENTOS de un PACIENTE.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver los medicamentos asignados a un PACIENTE
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]/{idpaciente}")]
+        public async Task<ActionResult<List<MedicamentoYPaciente>>> GetMedicamentosPaciente(int idpaciente)
+        {
+            return this.repo.GetAllMedicamentosPaciente(idpaciente);
+        }
+
+        /// <summary>
+        /// Permite crear un PACIENTE.
+        /// </summary>
+        /// <remarks>
+        /// Método para crear un PACIENTE (Recuerda que el Medico se saca del metodo GetIdMedico)
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpPost]
+        public async Task<ActionResult> CreatePaciente(string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int medico)
+        {
+            this.repo.CreatePaciente(nombre, apellido, correo, contra, telefono, direccion, edad, genero, medico);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Permite crear un cita siendo PACIENTE.
+        /// </summary>
+        /// <remarks>
+        /// Método para crear un cita PACIENTE
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpPost]
+        [Route("[action]/{fecha}/{hora}/{idmedico}/{idpaciente}")]
+        public async Task<ActionResult> CreateCitaPaciente(DateTime fecha, TimeSpan hora, int idmedico, int idpaciente)
+        {
+            this.repo.CreateCitaPaciente(fecha, hora, idmedico, idpaciente);
+            return Ok();
+        }
+
+
+        /// <summary>
+        /// Permite editar un PACIENTE.
+        /// </summary>
+        /// <remarks>
+        /// Método para editar un PACIENTE
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>  
+        [HttpPut]
+        public async Task<ActionResult> UpdatePaciente(int id, string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int Estado, int tipo)
+        {
+            this.repo.EditPaciente(id, nombre, apellido, correo, contra, telefono, direccion, edad, genero, Estado, tipo);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Permite editar una CITA siendo PACIENTE.
+        /// </summary>
+        /// <remarks>
+        /// Método para editar una cita ya creada siendo PACIENTE
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>  
+        [HttpPut]
+        [Route("[action]/{idcita}/{fecha}/{hora}")]
+        public async Task<ActionResult> UpdateCitaPaciente(int idcita, DateTime fecha, TimeSpan hora)
+        {
+            this.repo.UpdateCitaDetalladaPaciente(idcita, fecha, hora);
+            return Ok();
+        }
     }
 }

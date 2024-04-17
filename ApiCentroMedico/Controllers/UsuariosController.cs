@@ -72,7 +72,7 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
-        /// Obtiene el información del USUARIO DETALLADO, View.
+        /// Obtiene el información del USUARIO DETALLADO.
         /// </summary>
         /// <remarks>
         /// Método para devolver toda la informacion del USUARIOS DETALLADO de la BBDD mediante IdUsuario
@@ -117,7 +117,7 @@ namespace ApiCentroMedico.Controllers
         /// Permite crear un USUARIO, Tabla USUARIOS.
         /// </summary>
         /// <remarks>
-        /// Método para crear un usuario en la bbdd
+        /// Método para crear un usuario en la bbdd (Recepcionista o Admin)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
         [HttpPost]

@@ -406,8 +406,6 @@ namespace ApiCentroMedico.Repositories
             this.context.Database.ExecuteSqlRaw(sql, pamIdPeti);
         }
 
-        // *** Un formulario que me permita ver los medicamentos en estado de alta o baja (Formulario Peticion Medicamentos con ID)
-
         //Metodo para create una peticion con id(Solo acatualizara el estado del medicamento)
         public void CreatePeticionMedicamentoConId(int idMedico, int idMedicamento, int estadoMedicamento)
         {
@@ -584,13 +582,13 @@ namespace ApiCentroMedico.Repositories
             return this.context.MedicamentoYPacientes.Where(z => z.IdPaciente == idpaciente && z.IdDispoMedicamento == 1).ToList();
         }
 
-        //Metodo para encontrar un dato de MedicamentoYPaciente
+        //Metodo para encontrar un dato de MedicamentoYPaciente (Usado para buscar por ID los datos del asignamiento de medicamento al paciente)
         public MedicamentoYPaciente FindMedicamentoYPaciente(int id)
         {
             return this.context.MedicamentoYPacientes.Where(z => z.Id == id).FirstOrDefault();
         }
 
-        //Metodo para actualizar los datos de MedicamentoYPaciente
+        //Metodo para actualizar los datos de MedicamentoYPaciente (Aqui se usa FindMedicamentoYPaciente)
         public void UpdateMedicamentoYPaciente(int id)
         {
             MedicamentoYPaciente misdatos = this.FindMedicamentoYPaciente(id);

@@ -15,3 +15,8 @@ Fecha: 15/04/2024
 8. Instalaremos el nugget NSwaggerAspNetCore para documentar las APIS.
 9. Configuramos el program para añadir las nuevas configuraciones OpenApiDocument.
 10. Agregamos al controller la documentación y lo modificamos segun la necesidad.
+
+Fecha : 16/04/2024
+1. Heredemos de la interfaz y agregamos los metodos al repo
+2. Creamos el controller usuario donde tenemos pensando meter todos los metodos de usuarios.(get,create,update,delete)
+3. Creamos el controller paciente , todo los metodos relacionados con paciente.(Solo los gets)

@@ -27,6 +27,9 @@ Fecha: 17/04/2024
 
 Fecha: 18/04/2024
 1. Terminamos recepcionistas
-
+2. Cambios de nombre de USUARIO a Admin.
+3. Terminamos con Medicos.
+4. Terminamos con Medicamentos.
+5. Empezando a insertar metodos sueltos y organizarlos **
 
 Seria bueno comentar al final como va la aplicacion y las apis.

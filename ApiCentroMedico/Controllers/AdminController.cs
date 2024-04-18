@@ -7,27 +7,13 @@ namespace ApiCentroMedico.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class AdminController : ControllerBase
     {
         private RepositoryCentroMedico repo;
-        public UsuariosController(RepositoryCentroMedico repo)
+        public AdminController(RepositoryCentroMedico repo)
         {
             this.repo = repo;
         }
-
-        /// <summary>
-        /// Obtiene el conjunto de USUARIOS, tabla USUARIOS.
-        /// </summary>
-        /// <remarks>
-        /// Método para devolver todos las usuarios de la BBDD
-        /// </remarks>
-        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
-        //[HttpGet]
-        //[Route("[action]")]
-        //public async Task<ActionResult<List<Usuario>>> GetUsuarios()
-        //{
-        //    return await this.repo.GetUsuariosAsync();
-        //}
 
         /// <summary>
         /// Obtiene el información del USUARIO(Login), tabla USUARIOS.
@@ -114,6 +100,20 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
+        /// Permite obtener un conjunto de estados de CITAS.
+        /// </summary>
+        /// <remarks>
+        /// Método para obtener informacion de los estados de citas
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<List<SeguimientoCita>>> GetEstadosSeguimiento()
+        {
+            return this.repo.GetAllSeguimientoCita();
+        }
+
+        /// <summary>
         /// Permite crear un USUARIO, Tabla USUARIOS.
         /// </summary>
         /// <remarks>
@@ -131,7 +131,7 @@ namespace ApiCentroMedico.Controllers
         /// Actualiza la información de un USUARIOS, Tabla USUARIOS.
         /// </summary>
         /// <remarks>
-        /// Método para actualizar el usuarios de la bbdd
+        /// Método para actualizar el usuarios de la bbdd (Admin y Recepcionista)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
         [HttpPut]

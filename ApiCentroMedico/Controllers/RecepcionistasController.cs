@@ -28,5 +28,20 @@ namespace ApiCentroMedico.Controllers
         {
             return this.repo.FindPacienteDistintoDetallado(nombre, apellido, correo);
         }
+
+        /// <summary>
+        /// Permite crear una peticion de un USUARIO.
+        /// </summary>
+        /// <remarks>
+        /// Método para crear una peticion de alta/baja de un USUAURIO 
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpPost]
+        [Route("[action]/{idsolicitante}/{idmodificado}/{nuevoestado}")]
+        public async Task<ActionResult> CreatePeticionUsuario(int idsolicitante, int idmodificado, int nuevoestado)
+        {
+            this.repo.CreatePeticionUsuarios(idsolicitante, idmodificado, nuevoestado);
+            return Ok();
+        }
     }
 }

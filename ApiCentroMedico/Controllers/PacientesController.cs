@@ -72,7 +72,7 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
-        /// Obtiene la toda la informacion detallada de PACIENTE.
+        /// Obtiene la toda la informacion detallada de PACIENTE. *****Comparte con Medico
         /// </summary>
         /// <remarks>
         /// Método para devolver la toda la informacion de un paciente detallado
@@ -83,20 +83,6 @@ namespace ApiCentroMedico.Controllers
         public async Task<ActionResult<PacienteDetallado>> FindPacienteDetallado(int idpaciente)
         {
             return this.repo.FindPacienteDetallado(idpaciente);
-        }
-
-        /// <summary>
-        /// Obtiene la informacion de Medicamentos y Pacientes. //Zona Medicamentos ***
-        /// </summary>
-        /// <remarks>
-        /// Método para devolver los datos de esa asiganacion de medicamento al paciente (Parametro = IDMEDICAMENTOYPACIENTE)
-        /// </remarks>
-        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
-        [HttpGet]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<MedicamentoYPaciente>> FindMedicamentoYPaciente(int id)
-        {
-            return this.repo.FindMedicamentoYPaciente(id);
         }
 
         /// <summary>
@@ -139,6 +125,21 @@ namespace ApiCentroMedico.Controllers
         public async Task<ActionResult<List<MedicamentoYPaciente>>> GetMedicamentosPaciente(int idpaciente)
         {
             return this.repo.GetAllMedicamentosPaciente(idpaciente);
+        }
+
+        /// <summary>
+        /// Devuelve un valor(int).
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver un valor( 0 y 1) , esto sirve para saber si la cita ya esta reservada
+        /// Tener en cuenta que si esta en proceso y esta reservada devuelve 1 , si esta completada y reservada devolvera 0 (Finalizo la cita)
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]/{idmedico}/{fecha}/{hora}")]
+        public async Task<ActionResult<int>> FindCitaReservada(int idmedico, DateTime fecha, TimeSpan hora)
+        {
+            return this.repo.FindCitaDispo(idmedico,fecha,hora);
         }
 
         /// <summary>

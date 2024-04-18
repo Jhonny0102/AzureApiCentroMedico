@@ -20,3 +20,13 @@ Fecha : 16/04/2024
 1. Heredemos de la interfaz y agregamos los metodos al repo
 2. Creamos el controller usuario donde tenemos pensando meter todos los metodos de usuarios.(get,create,update,delete)
 3. Creamos el controller paciente , todo los metodos relacionados con paciente.(Solo los gets)
+
+Fecha: 17/04/2024
+1. Terminamos todos los metodos de Paciente.
+2. Empezamos con recepcionista.
+
+Fecha: 18/04/2024
+1. Terminamos recepcionistas
+
+
+Seria bueno comentar al final como va la aplicacion y las apis.

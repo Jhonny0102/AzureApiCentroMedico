@@ -7,10 +7,10 @@ namespace ApiCentroMedico.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminController : ControllerBase
+    public class UsuariosController : ControllerBase
     {
         private RepositoryCentroMedico repo;
-        public AdminController(RepositoryCentroMedico repo)
+        public UsuariosController(RepositoryCentroMedico repo)
         {
             this.repo = repo;
         }
@@ -97,20 +97,6 @@ namespace ApiCentroMedico.Controllers
         public async Task<ActionResult<List<Usuario>>> GetUsuariosTipo(int tipo)
         {
             return this.repo.GetUsuariosTipo(tipo);
-        }
-
-        /// <summary>
-        /// Permite obtener un conjunto de estados de CITAS.
-        /// </summary>
-        /// <remarks>
-        /// Método para obtener informacion de los estados de citas
-        /// </remarks>
-        /// <response code="200">OK. Devuelve el objeto solicitado.</response>
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<ActionResult<List<SeguimientoCita>>> GetEstadosSeguimiento()
-        {
-            return this.repo.GetAllSeguimientoCita();
         }
 
         /// <summary>

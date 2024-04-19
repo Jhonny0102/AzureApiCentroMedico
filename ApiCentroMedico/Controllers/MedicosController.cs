@@ -16,17 +16,31 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
-        /// Obtiene el conjunto de USUARIOS, tabla USUARIOS.
+        /// Obtiene informacion MEDICO.
         /// </summary>
         /// <remarks>
-        /// Método para devolver todos las usuarios de la BBDD
+        /// Método para los datos de un medico
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpGet]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<MedicoDetallado>> FindMedicoDetallado(int id)
+        [Route("[action]/{idmedico}")]
+        public async Task<ActionResult<Medico>> FindMedico(int idmedico)
         {
-            return this.repo.FindMedicoDetallado(id);
+            return this.repo.FindMedico(idmedico);
+        }
+
+        /// <summary>
+        /// Obtiene informacion DETALLADA de MEDICO.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver datos de forma detallada de un medico
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]/{idmedico}")]
+        public async Task<ActionResult<MedicoDetallado>> FindMedicoDetallado(int idmedico)
+        {
+            return this.repo.FindMedicoDetallado(idmedico);
         }
 
         /// <summary>
@@ -72,6 +86,20 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
+        /// Obtiene informacion filtrada de CITAS DETALLADA.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver la informacion detallada de las citas de la BBDD mediante un filtro (Muestra las citas que hay ese fecha solicitada)
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]/{idmedico}/{fecha}")]
+        public async Task<ActionResult<List<CitaDetalladaMedicos>>> FindCitaDetalladaMedicoList(int idmedico, DateTime fecha)
+        {
+            return this.repo.FindCitasDetalladasMedicos(idmedico,fecha);
+        }
+
+        /// <summary>
         /// Solicitud de creacion de un MEDICAMENTO.
         /// </summary>
         /// <remarks>
@@ -83,6 +111,21 @@ namespace ApiCentroMedico.Controllers
         public async Task<ActionResult> CreateSolicitudAltaMedicamento(int idmedico, string nombremedicamento, string descripcionmedicamento)
         {
             this.repo.CreatePeticionMedicamentoSinId(idmedico,nombremedicamento,descripcionmedicamento);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Permite crear un MEDICO.
+        /// </summary>
+        /// <remarks>
+        /// Método para crear un MEDICO nuevo
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpPost]
+        [Route("[action]/{nombre}/{apellido}/{correo}/{contra}/{especialidad}")]
+        public async Task<ActionResult> CreateMedico(string nombre, string apellido, string correo, string contra, int especialidad)
+        {
+            this.repo.CreateMedico(nombre,apellido,correo,contra,especialidad);
             return Ok();
         }
 
@@ -114,6 +157,21 @@ namespace ApiCentroMedico.Controllers
         public async Task<ActionResult> UpdateCitaMedica(int idmedico, int idpaciente, int idcita, string comentario, int seguimiento, List<int> medicamentos)
         {
             this.repo.UpdateCitaMedica(idmedico, idpaciente, idcita,comentario,seguimiento,medicamentos);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Permite Actualizar los datos MEDICO
+        /// </summary>
+        /// <remarks>
+        /// Método para actualizar una los datos de un MEDICO.
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpPut]
+        [Route("[action]/{idmedico}/{nombre}/{apellido}/{correo}/{contra}/{especialidad}/{estado}/{tipo}")]
+        public async Task<ActionResult> UpdateCitaMedica(int idmedico, string nombre, string apellido, string correo, string contra, int estado, int tipo ,int especialidad)
+        {
+            this.repo.EditMedico(idmedico, nombre, apellido, correo, contra, estado , tipo , especialidad);
             return Ok();
         }
     }

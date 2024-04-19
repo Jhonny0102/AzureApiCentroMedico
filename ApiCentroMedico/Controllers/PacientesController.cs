@@ -143,6 +143,20 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
+        /// Devuelve el Id de un MEDICO ALEATORIO.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver el ID de un MEDICO aleatorio pasando el id de la especialidad
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]/{idespecialidad}")]
+        public async Task<ActionResult<int>> GetIdMedicoAleatorio(int idespecialidad)
+        {
+            return this.repo.GetIdMedico(idespecialidad);
+        }
+
+        /// <summary>
         /// Permite crear un PACIENTE.
         /// </summary>
         /// <remarks>

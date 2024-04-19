@@ -37,10 +37,10 @@ namespace ApiCentroMedico.Controllers
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpPost]
-        [Route("[action]/{idsolicitante}/{idmodificado}/{nuevoestado}")]
-        public async Task<ActionResult> CreatePeticionUsuario(int idsolicitante, int idmodificado, int nuevoestado)
+        [Route("[action]/{idrecepcionista}/{idpaciente}/{nuevoestado}")]
+        public async Task<ActionResult> CreatePeticionUsuario(int idrecepcionista, int idpaciente, int nuevoestado)
         {
-            this.repo.CreatePeticionUsuarios(idsolicitante, idmodificado, nuevoestado);
+            this.repo.CreatePeticionUsuarios(idrecepcionista, idpaciente, nuevoestado);
             return Ok();
         }
     }

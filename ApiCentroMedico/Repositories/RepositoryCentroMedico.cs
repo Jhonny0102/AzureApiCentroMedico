@@ -292,6 +292,12 @@ namespace ApiCentroMedico.Repositories
             };
         }
 
+        //Metodo para devoler todas las citas.
+        public List<Cita> GetCitasAll()
+        {
+            return this.context.Citas.ToList();
+        }
+
         //Metodo para encontrar una CITA
         public Cita FindCita(int idCita)
         {

@@ -102,20 +102,32 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
-        /// Permite aceptar una peticion de un MEDICAMENTO **** Necesario crear todas las situaciones que pede tener este metodo
+        /// Permite aceptar una peticion de un MEDICAMENTO nuevo
         /// </summary>
         /// <remarks>
-        /// Método para aceptar la peticion de un medicameto solicitado por un MEDICO
-        /// Recuerda, este metodo puede recibir idmedicamento y descripcion:
-        /// 1. Si recibe el idmedicamento , solicitara la actualizacion del estado del medicamento.
-        /// 2. Si recibe descripcion , solicitara el alta de un medicamento.
+        /// Método para aceptar la peticion de un medicameto nuevo solicitado por un MEDICO
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpPut]
-        [Route("[action]/{idpeticion}/{idmedicamento}/{nombre}/{descripcion}/{estado}")]
-        public async Task<ActionResult> AceptarPeticionMedicamento(int idpeticion, int? idmedicamento, string nombre, string? descripcion, int estado)
+        [Route("[action]/{idpeticion}/{nombre}/{descripcion}/{estado}")]
+        public async Task<ActionResult> AceptarPeticionMedicamentoNuevo(int idpeticion, string nombre, string descripcion, int estado)
         {
-            this.repo.OkPeticionMedicamento(idpeticion,idmedicamento,nombre,descripcion,estado);
+            this.repo.OkPeticionMedicamentoNuevo(idpeticion,nombre,descripcion,estado);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Permite aceptar una peticion de un MEDICAMENTO Actualizado
+        /// </summary>
+        /// <remarks>
+        /// Método para aceptar la peticion de un medicameto actualizado solicitado por un MEDICO
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpPut]
+        [Route("[action]/{idpeticion}/{idmedicamento}/{estado}")]
+        public async Task<ActionResult> AceptarPeticionMedicamentoActualizado(int idpeticion, int idmedicamento , int estado)
+        {
+            this.repo.OkPeticionMedicamentoActualizar(idpeticion,idmedicamento, estado);
             return Ok();
         }
 

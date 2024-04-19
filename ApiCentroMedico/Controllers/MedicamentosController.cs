@@ -30,7 +30,7 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
-        /// Obtiene la informacion de Medicamentos y Pacientes. //Zona Medicamentos ***
+        /// Obtiene la informacion de Medicamentos y Pacientes.
         /// </summary>
         /// <remarks>
         /// Método para devolver los datos de esa asiganacion de medicamento al paciente (Parametro = IDMEDICAMENTOYPACIENTE)
@@ -44,10 +44,24 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
+        /// Obtiene el conjunto de Medicamentos y Pacientes.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver todos los datos de MedicamentoPaciente
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<List<MedicamentoYPacienteSInView>>> GetAllMedicamentoPaciente()
+        {
+            return this.repo.GetAllMedicamentoPaciente();
+        }
+
+        /// <summary>
         /// Permite actualidar los datos, Tabla MEDICAMENTOPACIENTE.
         /// </summary>
         /// <remarks>
-        /// Método para actualizar la disponibilidad de un medicamento asigando a un paciente (Parametro = IDMEDICAMENTOPACIENTE)
+        /// Método para actualizar la disponibilidad(a BAJA) de un medicamento asigando a un paciente (Parametro = IDMEDICAMENTOPACIENTE)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpPut]

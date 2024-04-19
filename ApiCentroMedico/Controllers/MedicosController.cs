@@ -168,10 +168,10 @@ namespace ApiCentroMedico.Controllers
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpPut]
-        [Route("[action]/{idmedico}/{nombre}/{apellido}/{correo}/{contra}/{especialidad}/{estado}/{tipo}")]
-        public async Task<ActionResult> UpdateCitaMedica(int idmedico, string nombre, string apellido, string correo, string contra, int estado, int tipo ,int especialidad)
+        [Route("[action]")]
+        public async Task<ActionResult> UpdateMedico(Medico medico)
         {
-            this.repo.EditMedico(idmedico, nombre, apellido, correo, contra, estado , tipo , especialidad);
+            this.repo.EditMedico(medico.Id, medico.Nombre, medico.Apellido, medico.Correo, medico.Contra, medico.EstadoUsuario, medico.TipoUsuario, medico.Especialidad);
             return Ok();
         }
     }

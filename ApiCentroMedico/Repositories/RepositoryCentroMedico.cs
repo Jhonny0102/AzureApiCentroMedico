@@ -4,6 +4,381 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
+#region VISTAS
+
+//create view V_ALL_MEDICOS
+//as
+//	SELECT USUARIOS.ID, USUARIOS.NOMBRE, USUARIOS.APELLIDO, USUARIOS.CORREO, USUARIOS.CONTRA, USUARIOS.ID_ESTADOUSUARIO, USUARIOS.ID_TIPOUSUARIO,
+//    MEDICOESPECIALIDAD.ID_ESPECIALIDAD
+//	FROM USUARIOS
+//	INNER JOIN MEDICOESPECIALIDAD 
+//	ON USUARIOS.ID = MEDICOESPECIALIDAD.ID_MEDICO
+//	WHERE USUARIOS.ID_TIPOUSUARIO = 3
+//go
+
+
+//create view V_ALL_PACIENTES
+//as
+//	SELECT USUARIOS.ID, USUARIOS.NOMBRE, USUARIOS.APELLIDO, USUARIOS.CORREO, USUARIOS.CONTRA, USUARIOS.ID_ESTADOUSUARIO, USUARIOS.ID_TIPOUSUARIO,
+//    DATOSEXTRASPACIENTES.TELEFONO, DATOSEXTRASPACIENTES.DIRECCION, DATOSEXTRASPACIENTES.EDAD, DATOSEXTRASPACIENTES.GENERO
+//	FROM USUARIOS
+//	LEFT JOIN DATOSEXTRASPACIENTES
+//	ON USUARIOS.ID = DATOSEXTRASPACIENTES.ID_USUARIO
+//	WHERE USUARIOS.ID_TIPOUSUARIO = 4
+//go
+
+//create view V_ALL_PACIENTES_DETALLADO
+//as
+//	SELECT USUARIOS.ID, USUARIOS.NOMBRE, USUARIOS.APELLIDO, USUARIOS.CORREO, USUARIOS.CONTRA,
+//    DATOSEXTRASPACIENTES.TELEFONO, DATOSEXTRASPACIENTES.DIRECCION, DATOSEXTRASPACIENTES.EDAD, DATOSEXTRASPACIENTES.GENERO ,
+//    ESTADOUSUARIO.ESTADO ,
+//    TIPOUSUARIOS.TIPO
+//	FROM USUARIOS
+//	LEFT JOIN DATOSEXTRASPACIENTES
+//	ON USUARIOS.ID = DATOSEXTRASPACIENTES.ID_USUARIO
+//	INNER JOIN ESTADOUSUARIO
+//	ON USUARIOS.ID_ESTADOUSUARIO = ESTADOUSUARIO.ID
+//	INNER JOIN TIPOUSUARIOS
+//	ON USUARIOS.ID_TIPOUSUARIO = TIPOUSUARIOS.ID
+//	WHERE USUARIOS.ID_TIPOUSUARIO = 4
+//go
+
+//create view V_ALL_MEDICOS_DETALLADO
+//as
+//	SELECT USUARIOS.ID, USUARIOS.NOMBRE, USUARIOS.APELLIDO, USUARIOS.CORREO, USUARIOS.CONTRA, ESPECIALIDADES.ESPECIALIDAD ,
+//    ESTADOUSUARIO.ESTADO ,
+//    TIPOUSUARIOS.TIPO
+//	FROM USUARIOS
+//	INNER JOIN MEDICOESPECIALIDAD 
+//	ON USUARIOS.ID = MEDICOESPECIALIDAD.ID_MEDICO
+//	INNER JOIN ESPECIALIDADES
+//	ON MEDICOESPECIALIDAD.ID_ESPECIALIDAD = ESPECIALIDADES.ID
+//	INNER JOIN ESTADOUSUARIO
+//	ON USUARIOS.ID_ESTADOUSUARIO = ESTADOUSUARIO.ID
+//	INNER JOIN TIPOUSUARIOS
+//	ON USUARIOS.ID_TIPOUSUARIO = TIPOUSUARIOS.ID
+//	WHERE USUARIOS.ID_TIPOUSUARIO = 3
+//go
+
+//create view V_ALL_USUARIOS_DETALLADOS
+//as
+//	SELECT USUARIOS.ID, USUARIOS.NOMBRE, USUARIOS.APELLIDO, USUARIOS.CORREO, USUARIOS.CONTRA,
+//    ESTADOUSUARIO.ESTADO,
+//    TIPOUSUARIOS.TIPO
+//	FROM USUARIOS
+//	INNER JOIN ESTADOUSUARIO
+//	ON USUARIOS.ID_ESTADOUSUARIO = ESTADOUSUARIO.ID
+//	INNER JOIN TIPOUSUARIOS
+//	ON USUARIOS.ID_TIPOUSUARIO = TIPOUSUARIOS.ID
+//	WHERE USUARIOS.ID_TIPOUSUARIO = 1 OR USUARIOS.ID_TIPOUSUARIO = 2
+//go
+
+//CREATE VIEW V_CITAS_DETALLADO
+//AS
+//	SELECT CITAS.ID, CITAS.FECHA, CITAS.HORA, SEGUIMIENTOCITA.ESTADO, USUARIOS.APELLIDO AS MEDICO, CITAS.COMENTARIO
+//	FROM CITAS
+//	INNER JOIN USUARIOS
+//	ON CITAS.ID_MEDICO = USUARIOS.ID
+//	INNER JOIN SEGUIMIENTOCITA
+//	ON CITAS.ID_SEGUIMIENTOCITA=SEGUIMIENTOCITA.ID
+//GO
+
+//CREATE VIEW V_PACIENTESMEDICOS
+//AS
+//	SELECT ROW_NUMBER() OVER (ORDER BY APELLIDO) AS IDP , MEDICOPACIENTE.ID_MEDICO, USUARIOS.ID, USUARIOS.NOMBRE, USUARIOS.APELLIDO, USUARIOS.CORREO
+//	FROM MEDICOPACIENTE
+//	INNER JOIN USUARIOS 
+//	ON MEDICOPACIENTE.ID_PACIENTE=USUARIOS.ID
+//GO
+
+//CREATE VIEW V_DETAILS_PETICIONES
+//AS
+//	SELECT PETICIONESUSUARIOS.ID AS IDPETICION, PETICIONESUSUARIOS.ID_USUARIO_SOLICITANTE AS IDRECEPCIONISTA, USUARIOS.ID AS IDUSUARIO, USUARIOS.NOMBRE, USUARIOS.APELLIDO, ESTADOUSUARIO.ESTADO  FROM PETICIONESUSUARIOS
+//	INNER JOIN USUARIOS
+//	ON USUARIOS.ID = PETICIONESUSUARIOS.ID_USUARIO_MODIFICAR
+//	INNER JOIN ESTADOUSUARIO
+//	ON PETICIONESUSUARIOS.ID_ESTADO_NUEVO=ESTADOUSUARIO.ID
+//GO
+
+//CREATE VIEW V_DETAILS_PETICIONES_MEDICAMENTOS
+//AS
+//	SELECT 
+//	PETICIONESMEDICAMENTOS.ID AS IDPETICION, PETICIONESMEDICAMENTOS.ID_MEDICO AS IDMEDICO_SOLICITANTE ,
+//    PETICIONESMEDICAMENTOS.NOMBRE AS PETISMEDICAMENTO_NOMBRE, PETICIONESMEDICAMENTOS.DESCRIPCION AS PETISMEDICAMENTO_DESC,
+//    PETICIONESMEDICAMENTOS.ID_ESTADO_NUEVO AS PETISMEDICAMENTO_ESTADO,
+//    USUARIOS.NOMBRE AS NOMBREMEDICO, USUARIOS.APELLIDO APELLIDOMEDICO,
+//    MEDICAMENTOS.ID AS IDMEDICAMENTO, MEDICAMENTOS.NOMBRE,
+//    ESTADOUSUARIO.ESTADO
+//	FROM PETICIONESMEDICAMENTOS
+//	INNER JOIN USUARIOS
+//	ON PETICIONESMEDICAMENTOS.ID_MEDICO=USUARIOS.ID
+//	LEFT JOIN MEDICAMENTOS
+//	ON PETICIONESMEDICAMENTOS.ID_MEDICAMENTO=MEDICAMENTOS.ID
+//	INNER JOIN ESTADOUSUARIO
+//	ON PETICIONESMEDICAMENTOS.ID_ESTADO_NUEVO=ESTADOUSUARIO.ID
+//GO
+
+//CREATE VIEW V_CITASMEDICOS_FILTRO
+//AS
+//	SELECT CITAS.ID, CITAS.FECHA, CITAS.HORA, CITAS.ID_MEDICO, CITAS.ID_PACIENTE , USUARIOS.NOMBRE , USUARIOS.APELLIDO , CITAS.ID_ESTADOCITA , CITAS.COMENTARIO
+//	FROM CITAS 
+//	INNER JOIN USUARIOS
+//	ON CITAS.ID_PACIENTE = USUARIOS.ID
+//GO
+
+//CREATE VIEW V_MEDICAMENTOSYPACIENTES
+//AS
+//	SELECT  MEDICAMENTOPACIENTE.ID , MEDICAMENTOPACIENTE.ID_MEDICAMENTO AS IDMEDICAMENTO, MEDICAMENTOS.NOMBRE AS NOMBREMEDICAMENTO , MEDICAMENTOS.DESCRIPCION ,
+//    MEDICAMENTOPACIENTE.ID_MEDICO AS IDMEDICO, USUARIOS.NOMBRE , USUARIOS.APELLIDO ,
+//    MEDICAMENTOPACIENTE.ID_PACIENTE AS IDPACIENTE ,
+//    MEDICAMENTOPACIENTE.ID_DISPOMEDICAMENTO AS IDDISPOMEDICAMENTO, DISPONIBILIDADMEDICAMENTOS.ESTADO
+//	FROM MEDICAMENTOPACIENTE
+//	INNER JOIN USUARIOS
+//	ON MEDICAMENTOPACIENTE.ID_MEDICO=USUARIOS.ID
+//	INNER JOIN DISPONIBILIDADMEDICAMENTOS
+//	ON MEDICAMENTOPACIENTE.ID_DISPOMEDICAMENTO=DISPONIBILIDADMEDICAMENTOS.ID
+//	INNER JOIN MEDICAMENTOS
+//	ON MEDICAMENTOPACIENTE.ID_MEDICAMENTO= MEDICAMENTOS.ID
+//GO
+#endregion
+
+#region PROCEDURES
+
+//create procedure sp_delete_paciente
+//(@id int)
+//as
+//    delete from datosextraspacientes 
+//	where id_usuario=@id
+
+//	delete from medicopaciente
+//	where id_paciente=@id
+
+//	delete from peticionesusuarios
+//	where id_usuario_modificar=@id
+
+//	delete from medicamentopaciente
+//	where id_paciente=@id
+
+//	delete from medicopaciente
+//	where id_paciente=@id
+
+//	delete from citas
+//	where id_paciente=@id
+//	--esta consulta de accion de ultimo
+//	delete from usuarios 
+//	where id=@id
+//go
+
+
+//create procedure sp_delete_medico
+//(@id int)
+//as
+//    delete from medicopaciente
+//	where id_medico=@id
+
+//	delete from peticionesbajas
+//	where id_usuario=@id
+
+//	delete from medicamentopaciente
+//	where id_medico=@id
+
+//	delete from medicopaciente
+//	where id_medico=@id
+
+//	delete from citas
+//	where id_medico=@id
+
+//	delete from medicoespecialidad
+//	where id_medico=@id
+//	--esta consulta de accion de ultimo
+//	delete from usuarios 
+//	where id=@id
+//go
+
+
+//create procedure sp_delete_usuario
+//(@id int)
+//as
+//    delete from peticionesbajas
+//	where id_usuario=@id
+
+//	--esta consulta de accion de ultimo
+//	delete from usuarios 
+//	where id=@id
+//go
+
+//create procedure sp_edit_medico
+//(@id int, @nombre nvarchar(50), @apellido nvarchar(50), @correo nvarchar(50), @contra nvarchar(50), @estado int, @tipo int , @especialidad int)
+//as
+//	update usuarios
+//	set id=@id, nombre = @nombre, apellido = @apellido, correo = @correo, contra = @contra, id_estadousuario = @estado, id_tipousuario = @tipo
+//	where id=@id
+//	update medicoespecialidad
+//	set id_especialidad=@especialidad
+//	where id_medico=@id
+//go
+
+//create procedure sp_edit_paciente
+//(@id int, @nombre nvarchar(50), @apellido nvarchar(50), @correo nvarchar(50), @contra nvarchar(50), @estado int, @tipo int , @telefono int, @direccion nvarchar(50), @edad int, @genero nvarchar(50))
+//as
+//	update usuarios
+//	set id=@id, nombre = @nombre, apellido = @apellido, correo = @correo, contra = @contra, id_estadousuario = @estado, id_tipousuario = @tipo
+//	where id=@id
+//	update datosextraspacientes
+//	set telefono=@telefono, direccion = @direccion, edad = @edad, genero = @genero
+//	where id_usuario=@id
+//go
+
+//create procedure sp_insert_medico
+//(@nombre nvarchar(50), @apellido nvarchar(50), @correo nvarchar(50), @contra nvarchar(50), @especialidad int , @estado int, @tipo int )
+//as
+//	DECLARE @idMaxUsuario INT
+//	SELECT @idMaxUsuario = MAX(ID) + 1 FROM USUARIOS
+//	INSERT INTO USUARIOS (ID, NOMBRE, APELLIDO, CORREO, CONTRA, ID_ESTADOUSUARIO, ID_TIPOUSUARIO) VALUES (@idMaxUsuario, @nombre, @apellido, @correo, @contra, @estado, @tipo)
+//	DECLARE @idMaxMedicoEspecialidad int
+//	SELECT @idMaxMedicoEspecialidad = MAX(ID) + 1 FROM MEDICOESPECIALIDAD
+//	INSERT INTO MEDICOESPECIALIDAD (ID, ID_MEDICO, ID_ESPECIALIDAD) VALUES (@idMaxMedicoEspecialidad, @idMaxUsuario, @especialidad)
+//go
+
+//create procedure sp_insert_paciente
+//( @nombre nvarchar(50), @apellido nvarchar(50), @correo nvarchar(50), @contra nvarchar(50), @telefono int, @direccion nvarchar(50), @edad int, @genero nvarchar(50), @medico int)
+//as
+//	DECLARE @idMaxUsuario INT
+//	SELECT @idMaxUsuario = MAX(ID) + 1 FROM USUARIOS
+//	INSERT INTO USUARIOS (ID, NOMBRE, APELLIDO, CORREO, CONTRA, ID_ESTADOUSUARIO, ID_TIPOUSUARIO) VALUES (@idMaxUsuario, @nombre, @apellido, @correo, @contra,1,4)
+
+//	DECLARE @idMaxDatosExtras int
+//	SELECT @idMaxDatosExtras = MAX(ID) + 1 FROM DATOSEXTRASPACIENTES
+//	INSERT INTO DATOSEXTRASPACIENTES (ID, ID_USUARIO, TELEFONO, DIRECCION, EDAD, GENERO) VALUES (@idMaxDatosExtras, @idMaxUsuario, @telefono, @direccion, @edad, @genero)
+
+//	DECLARE @idMaxMedicoPaciente int
+//	SELECT @idMaxMedicoPaciente = MAX(ID) + 1 FROM MEDICOPACIENTE
+//	INSERT INTO MEDICOPACIENTE (ID, ID_MEDICO, ID_PACIENTE) VALUES (@idMaxMedicoPaciente, @medico, @idMaxUsuario)
+//go
+
+//CREATE PROCEDURE SP_DETALLES_TUMEDICO
+//(@idPaciente int, @idMedico int out)
+//AS
+//	select @idMedico = USUARIOS.ID from USUARIOS 
+//	where ID = 
+//	( 
+//		select ID_MEDICO from MEDICOPACIENTE where ID_PACIENTE=@idPaciente
+//	)	
+//GO
+
+//CREATE VIEW V_DETAILS_PETICIONES
+//AS
+//	SELECT 
+//	PETICIONESUSUARIOS.ID AS IDPETICION,
+//    PETICIONESUSUARIOS.ID_USUARIO_SOLICITANTE AS IDRECEPCIONISTA,
+//    PETICIONESUSUARIOS.ID_ESTADO_NUEVO AS NUEVOESTADO,
+//    USUARIOS.ID AS IDUSUARIO, USUARIOS.NOMBRE, USUARIOS.APELLIDO, ESTADOUSUARIO.ESTADO  FROM PETICIONESUSUARIOS
+//	INNER JOIN USUARIOS
+//	ON USUARIOS.ID = PETICIONESUSUARIOS.ID_USUARIO_MODIFICAR
+//	INNER JOIN ESTADOUSUARIO
+//	ON PETICIONESUSUARIOS.ID_ESTADO_NUEVO=ESTADOUSUARIO.ID
+//GO
+
+//CREATE PROCEDURE SP_OKNOPETICION_USUARIO
+//(@idPeticion int)
+//AS
+//	DELETE FROM PETICIONESUSUARIOS WHERE ID=@idPeticion;
+//GO
+
+//--Puede haber dos opciones al dar de alta un medicamento:
+//--Con ID, que solo cambiaria de estado de 2(baja) a 1(alta)
+//CREATE PROCEDURE SP_OKPETI_MEDICAMENTO_CON_ID
+//(@idPeti int, @idMedicamento int, @idEstado_Nuevo int)
+//AS
+//	UPDATE MEDICAMENTOS SET ID_ESTADO=@idEstado_Nuevo WHERE ID=@idMedicamento;
+//DELETE FROM PETICIONESMEDICAMENTOS WHERE ID=@idPeti;
+//GO
+
+//-- Sin ID, que seria de crear un nuevo medicamento , tendremos que generar un ID para ese medicamento y añadir
+//-- sus propiedades (Nombre, Descripcion y estado)
+//CREATE PROCEDURE SP_OKPETI_MEDICAMENTO_SIN_ID
+//(@idPeti int, @nombreMed nvarchar(50), @descMed nvarchar(50), @idEstado_Nuevo int)
+//AS
+//	DECLARE @idMax int;
+//SELECT @idMax = MAX(ID) + 1 FROM MEDICAMENTOS
+//	INSERT INTO MEDICAMENTOS (ID, NOMBRE, DESCRIPCION, ID_ESTADO) VALUES (@idMax, @nombreMed, @descMed, @idEstado_Nuevo)
+//	DELETE FROM PETICIONESMEDICAMENTOS WHERE ID=@idPeti;
+//GO
+
+//CREATE PROCEDURE SP_OKNOPETI_MEDICAMENTO
+//(@idPeti int)
+//AS
+//	DELETE FROM PETICIONESMEDICAMENTOS WHERE ID=@idPeti;
+//GO
+
+//CREATE PROCEDURE SP_CREATEPETIMEDIC_CONID
+//(@idMedico int , @idMedicamento int , @idEstadoMedicamento int)
+//AS
+//	DECLARE @idMax int
+//	SELECT @idMax = MAX(ID) + 1 from PETICIONESMEDICAMENTOS
+//	INSERT INTO PETICIONESMEDICAMENTOS (ID, ID_MEDICO, ID_MEDICAMENTO, ID_ESTADO_NUEVO) VALUES (@idMax, @idMedico, @idMedicamento, @idEstadoMedicamento)
+//GO
+
+//CREATE PROCEDURE SP_CREATEPETIMEDIC_SINID
+//(@idMedico int , @nombreMedicamento nvarchar(50) , @descMedicamento nvarchar(50) , @idEstadoMedicamento int)
+//AS
+//	DECLARE @idMax int
+//	SELECT @idMax = MAX(ID) + 1 from PETICIONESMEDICAMENTOS
+//	INSERT INTO PETICIONESMEDICAMENTOS (ID, ID_MEDICO, NOMBRE, DESCRIPCION, ID_ESTADO_NUEVO) VALUES (@idMax, @idMedico, @nombreMedicamento, @descMedicamento, @idEstadoMedicamento)
+//GO
+
+//create procedure sp_createcitapaciente
+//(@fecha date , @hora time, @idmedico int , @idpaciente int)
+//as
+//	declare @idmax int 
+//	select @idmax = max(id) + 1 from citas
+//	insert into citas(id, fecha, hora, id_seguimientocita, id_medico, id_paciente, id_estadocita) values (@idmax, @fecha, @hora,3, @idmedico, @idpaciente, 1)
+//go
+
+//CREATE PROCEDURE SP_UPDATECITAMEDICA
+//(@idcita int, @comentario nvarchar(Max), @seguimiento int)
+//AS
+//	UPDATE CITAS SET COMENTARIO=@comentario , ID_SEGUIMIENTOCITA = @seguimiento, ID_ESTADOCITA = 2
+//	WHERE ID=@idcita
+//GO
+
+//CREATE PROCEDURE SP_UPDATECITAMEDICA_SINCOMENTARIO
+//(@idcita int, @seguimiento int)
+//AS
+//	UPDATE CITAS SET  ID_SEGUIMIENTOCITA=@seguimiento , ID_ESTADOCITA = 2
+//	WHERE ID=@idcita
+//GO
+
+//CREATE PROCEDURE SP_INSERTMEDICAMENTOPACIENTE
+//(@idmedicamento int, @idmedico int, @idpaciente int)
+//AS
+//	DECLARE @maxid int
+//	SELECT @maxid = MAX(ID) + 1 FROM MEDICAMENTOPACIENTE
+//	INSERT INTO MEDICAMENTOPACIENTE (ID, ID_MEDICAMENTO, ID_MEDICO, ID_PACIENTE, ID_DISPOMEDICAMENTO) VALUES (@maxid, @idmedicamento, @idmedico, @idpaciente,1)
+//GO
+
+//CREATE PROCEDURE SP_CREATEPETICIONUSUARIO
+//(@idsolicitante int, @idmodificado int, @idestadonuevo int)
+//AS
+//	DECLARE @max int
+//	SELECT @max = MAX(ID) + 1 FROM PETICIONESUSUARIOS
+//	INSERT INTO PETICIONESUSUARIOS (ID, ID_USUARIO_SOLICITANTE, ID_USUARIO_MODIFICAR, ID_ESTADO_NUEVO) VALUES (@max, @idsolicitante, @idmodificado, @idestadonuevo)
+//GO
+
+//CREATE PROCEDURE SP_GRUPO_CITAS_ADMIN
+//(@posicion int, @registros int out)
+//AS
+//	SELECT @registros = COUNT(ID) FROM V_CITAS_DETALLADO
+//	SELECT ID, FECHA, HORA, ESTADO, MEDICO, COMENTARIO FROM
+//	(
+//		SELECT CAST(ROW_NUMBER() OVER (ORDER BY ID) AS INT) AS POSICION ,
+//        ID, FECHA, HORA, ESTADO, MEDICO, COMENTARIO
+//		FROM V_CITAS_DETALLADO
+//	) AS QUERY
+//	WHERE QUERY.POSICION >= @posicion AND QUERY.POSICION < (@posicion + 6)
+//GO
+#endregion
+
 namespace ApiCentroMedico.Repositories
 {
     public class RepositoryCentroMedico  :IRepositoryCentroMedico
@@ -380,8 +755,8 @@ namespace ApiCentroMedico.Repositories
             return this.context.PeticionesMedicamentoDetallado.ToList();
         }
 
-        //Metodo para aceptar las peticiones de MEDICAMENTOS, dependiendo de si es solo actualizar(Con ID) o crearla(Sin ID)
-        public void OkPeticionMedicamento(int idPeti, int? idMedicamento, string nombre, string? descripcion, int estado)
+        //
+        public void OkPeticionMedicamentoActualizar(int idPeti, int idMedicamento, int estado)
         {
             //Si recibe un ID
             if (idMedicamento != null)
@@ -392,16 +767,17 @@ namespace ApiCentroMedico.Repositories
                 SqlParameter pamIdEstado = new SqlParameter("@idEstado_Nuevo", estado);
                 this.context.Database.ExecuteSqlRaw(sql, pamIdPeti, pamIdMedicamento, pamIdEstado);
             }
-            //Sino recibe un ID
-            else
-            {
-                string sql = "SP_OKPETI_MEDICAMENTO_SIN_ID @idpeti, @nombreMed , @descMed , @idEstado_Nuevo";
-                SqlParameter pamIdPeti = new SqlParameter("@idPeti", idPeti);
-                SqlParameter pamNombre = new SqlParameter("@nombreMed", nombre);
-                SqlParameter pamDescripcion = new SqlParameter("@descMed", descripcion);
-                SqlParameter pamIdEstado = new SqlParameter("@idEstado_Nuevo", estado);
-                this.context.Database.ExecuteSqlRaw(sql, pamIdPeti, pamNombre, pamDescripcion, pamIdEstado);
-            }
+        }
+
+        //
+        public void OkPeticionMedicamentoNuevo(int idPeti, string nombre, string descripcion, int estado)
+        {
+            string sql = "SP_OKPETI_MEDICAMENTO_SIN_ID @idpeti, @nombreMed , @descMed , @idEstado_Nuevo";
+            SqlParameter pamIdPeti = new SqlParameter("@idPeti", idPeti);
+            SqlParameter pamNombre = new SqlParameter("@nombreMed", nombre);
+            SqlParameter pamDescripcion = new SqlParameter("@descMed", descripcion);
+            SqlParameter pamIdEstado = new SqlParameter("@idEstado_Nuevo", estado);
+            this.context.Database.ExecuteSqlRaw(sql, pamIdPeti, pamNombre, pamDescripcion, pamIdEstado);
         }
 
         //Metodo para recharzar una peticion de MEDICAMENTOS
@@ -586,6 +962,12 @@ namespace ApiCentroMedico.Repositories
         public List<MedicamentoYPaciente> GetAllMedicamentosPaciente(int idpaciente)
         {
             return this.context.MedicamentoYPacientes.Where(z => z.IdPaciente == idpaciente && z.IdDispoMedicamento == 1).ToList();
+        }
+
+        //Metodo para devolver los datos de medicamentopaciente 
+        public List<MedicamentoYPacienteSInView> GetAllMedicamentoPaciente()
+        {
+            return this.context.MedicamentoYPacienteSInViews.ToList();
         }
 
         //Metodo para encontrar un dato de MedicamentoYPaciente (Usado para buscar por ID los datos del asignamiento de medicamento al paciente)

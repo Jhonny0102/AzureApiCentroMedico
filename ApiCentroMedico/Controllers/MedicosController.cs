@@ -153,8 +153,8 @@ namespace ApiCentroMedico.Controllers
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [HttpPut]
-        [Route("[action]/{idmedico}/{idpaciente}/{idcita}/{comentario}/{seguimiento}/{medicamentos}")]
-        public async Task<ActionResult> UpdateCitaMedica(int idmedico, int idpaciente, int idcita, string comentario, int seguimiento, List<int> medicamentos)
+        [Route("[action]/{idmedico}/{idpaciente}/{idcita}/{comentario}/{seguimiento}")]
+        public async Task<ActionResult> UpdateCitaMedica(int idmedico, int idpaciente, int idcita, string comentario, int seguimiento, [FromQuery] List<int> medicamentos) //Fijarse esto del fromquery
         {
             this.repo.UpdateCitaMedica(idmedico, idpaciente, idcita,comentario,seguimiento,medicamentos);
             return Ok();

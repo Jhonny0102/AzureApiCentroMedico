@@ -30,6 +30,21 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
+        /// Obtiene datos de un MEDICAMENTO.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver la informacion de un medicamento de la BBDD
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [HttpGet]
+        [Route("[action]/{idmedicamento}")]
+        public async Task<ActionResult<Medicamentos>> FindMedicamento(int idmedicamento)
+        {
+            return this.repo.FindMedicamento(idmedicamento);
+        }
+
+
+        /// <summary>
         /// Obtiene la informacion de Medicamentos y Pacientes.
         /// </summary>
         /// <remarks>

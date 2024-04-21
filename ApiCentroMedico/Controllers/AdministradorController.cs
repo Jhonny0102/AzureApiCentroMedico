@@ -1,5 +1,6 @@
 ﻿using ApiCentroMedico.Models;
 using ApiCentroMedico.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,9 +23,10 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver todos los datos de las citas
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<List<Cita>>> GetAllCitas()
+        public async Task<ActionResult<List<Cita>>> GetCitas()
         {
             return this.repo.GetCitasAll();
         }
@@ -36,6 +38,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver datos de una cita
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]/{idcita}")]
         public async Task<ActionResult<Cita>> FindCita(int idcita)
@@ -50,6 +53,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para los datos de las peticiones de usuarios
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<PeticionesDetallado>>> GetPeticionesDetalladasUsuarios()
@@ -64,6 +68,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para los datos de las peticiones de medicamentos de forma detallada
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<PeticionesMedicamentoDetallado>>> GetPeticionesDetalladasMedicamentos()
@@ -78,6 +83,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para aceptar la peticion solicitada por un recepcionista de un usuario. Una vez realizada la peticion , esta se elimina
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPut]
         [Route("[action]/{idpeticion}/{idusuario}/{idestadonuevo}")]
         public async Task<ActionResult> AceptarPeticionUsuario(int idpeticion, int idusuario , int idestadonuevo)
@@ -93,6 +99,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para denegar la peticion solicitada por un recepcionista de un usuario. Una vez realizada la peticion , esta se elimina
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPut]
         [Route("[action]/{idpeticion}")]
         public async Task<ActionResult> DenegarPeticionUsuario(int idpeticion)
@@ -108,6 +115,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para aceptar la peticion de un medicameto nuevo solicitado por un MEDICO
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPut]
         [Route("[action]/{idpeticion}/{nombre}/{descripcion}/{estado}")]
         public async Task<ActionResult> AceptarPeticionMedicamentoNuevo(int idpeticion, string nombre, string descripcion, int estado)
@@ -123,6 +131,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para aceptar la peticion de un medicameto actualizado solicitado por un MEDICO
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPut]
         [Route("[action]/{idpeticion}/{idmedicamento}/{estado}")]
         public async Task<ActionResult> AceptarPeticionMedicamentoActualizado(int idpeticion, int idmedicamento , int estado)
@@ -138,6 +147,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para denegar la peticion solicitada por un medico de un medicamento. Una vez realizada la peticion , esta se elimina
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPut]
         [Route("[action]/{idpeticion}")]
         public async Task<ActionResult> DenegarPeticionMedicamento(int idpeticion)
@@ -153,6 +163,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para eliminar una cita
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpDelete]
         [Route("[action]/{idcita}")]
         public async Task<ActionResult> DeleteCita(int idcita)

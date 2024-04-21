@@ -1,5 +1,6 @@
 ﻿using ApiCentroMedico.Models;
 using ApiCentroMedico.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,26 +17,13 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
-        /// Obtiene el información del USUARIO(Login), tabla USUARIOS.
-        /// </summary>
-        /// <remarks>
-        /// Método para devolver toda la informacion del USUARIOS de la BBDD mediante CORREO y CONTRA
-        /// </remarks>
-        /// <response code="200">OK. Devuelve el objeto solicitado.</response>
-        [HttpGet]
-        [Route("[action]/{correo}/{contra}")]
-        public async Task<ActionResult<Usuario>> GetLogin(string correo, string contra)
-        {
-            return this.repo.GetLogin(correo,contra);
-        }
-
-        /// <summary>
         /// Obtiene el información de un conjunto USUARIOS, Tabla USUARIOS.
         /// </summary>
         /// <remarks>
         /// Método para devolver los usuarios de la bbdd
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<Usuario>>> GetUsuarios()
@@ -50,6 +38,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver toda la informacion del USUARIOS de la BBDD mediante IdUsuario
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
         [HttpGet]
         [Route("[action]/{id}")]
         public async Task<ActionResult<Usuario>> FindUsuario(int id)
@@ -64,6 +53,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver toda la informacion del USUARIOS DETALLADO de la BBDD mediante IdUsuario
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
         [HttpGet]
         [Route("[action]/{id}")]
         public async Task<ActionResult<UsuarioDetallado>> GetUsuarioDetallado(int id)
@@ -78,6 +68,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver todos los tipos de roles de los usuarios
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<UsuariosTipo>>> GetTipoUsuarios()
@@ -92,6 +83,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver los usuarios de un tipo especifico(Rol)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
         [HttpGet]
         [Route("[action]/{tipo}")]
         public async Task<ActionResult<List<Usuario>>> GetUsuariosTipo(int tipo)
@@ -106,6 +98,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para crear un usuario en la bbdd (Recepcionista o Admin)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> CreateUsuario(string nombre, string apellido, string correo, string contra, int tipo)
         {
@@ -120,6 +113,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para actualizar el usuarios de la bbdd (Admin y Recepcionista)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
         [HttpPut]
         public async Task<ActionResult> UpdateUsuario(Usuario usuario)
         {
@@ -135,6 +129,7 @@ namespace ApiCentroMedico.Controllers
         /// diferentes tablas
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
         [HttpDelete]
         [Route("[action]/{id}/{tipo}")]
         public async Task<ActionResult> DeleteUsuario(int id, int tipo)

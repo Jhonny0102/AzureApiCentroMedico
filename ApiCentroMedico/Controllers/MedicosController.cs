@@ -1,5 +1,6 @@
 ﻿using ApiCentroMedico.Models;
 using ApiCentroMedico.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,8 @@ namespace ApiCentroMedico.Controllers
         /// <remarks>
         /// Método para los datos de un medico
         /// </remarks>
-        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response> 
+        [Authorize]
         [HttpGet]
         [Route("[action]/{idmedico}")]
         public async Task<ActionResult<Medico>> FindMedico(int idmedico)
@@ -36,6 +38,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver datos de forma detallada de un medico
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]/{idmedico}")]
         public async Task<ActionResult<MedicoDetallado>> FindMedicoDetallado(int idmedico)
@@ -50,6 +53,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver todos las paciente de un MEDICO de la BBDD
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]/{idmedico}")]
         public async Task<ActionResult<List<MedicosPacientes>>> GetMisPaciente(int idmedico)
@@ -64,6 +68,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver todos las citas de un MEDICO que tiene con sus paciente de la BBDD
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]/{idmedico}")]
         public async Task<ActionResult<List<CitaDetalladaMedicos>>> GetCitasDetalladasMedico(int idmedico)
@@ -78,6 +83,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver la informacion detallada de una cita de la BBDD
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]/{idcita}")]
         public async Task<ActionResult<CitaDetalladaMedicos>> FindCitaDetalladaMedico(int idcita)
@@ -92,6 +98,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver la informacion detallada de las citas de la BBDD mediante un filtro (Muestra las citas que hay ese fecha solicitada)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]/{idmedico}/{fecha}")]
         public async Task<ActionResult<List<CitaDetalladaMedicos>>> FindCitaDetalladaMedicoList(int idmedico, DateTime fecha)
@@ -106,6 +113,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para crear una solicitud de un medicamento nuevo, se pasa 3 parametros
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPost]
         [Route("[action]/{idmedico}/{nombremedicamento}/{descripcionmedicamento}")]
         public async Task<ActionResult> CreateSolicitudAltaMedicamento(int idmedico, string nombremedicamento, string descripcionmedicamento)
@@ -121,6 +129,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para crear un MEDICO nuevo
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPost]
         [Route("[action]/{nombre}/{apellido}/{correo}/{contra}/{especialidad}")]
         public async Task<ActionResult> CreateMedico(string nombre, string apellido, string correo, string contra, int especialidad)
@@ -136,6 +145,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para crear una solicitud de actualizaciín de un medicamento , se pasa 3 parametros
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPut]
         [Route("[action]/{idmedico}/{idmedicamento}/{estadomedicamento}")]
         public async Task<ActionResult> CreateSolicitudActualizacionEstadoMedicamento(int idmedico, int idmedicamento, int estadomedicamento)
@@ -152,6 +162,7 @@ namespace ApiCentroMedico.Controllers
         /// Si pasamos los id de medicamentos por el campo medicamentos no lo coge, pero si lo pasamos por el body si **
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPut]
         [Route("[action]/{idmedico}/{idpaciente}/{idcita}/{comentario}/{seguimiento}")]
         public async Task<ActionResult> UpdateCitaMedica(int idmedico, int idpaciente, int idcita, string comentario, int seguimiento, [FromQuery] List<int> medicamentos) //Fijarse esto del fromquery
@@ -167,6 +178,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para actualizar una los datos de un MEDICO.
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPut]
         [Route("[action]")]
         public async Task<ActionResult> UpdateMedico(Medico medico)

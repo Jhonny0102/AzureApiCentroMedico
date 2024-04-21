@@ -4,12 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NSwag.Generation.Processors.Security;
 using NSwag;
+using ApiCentroMedico.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Agregamos seguridad.
+HelperActionServicesOAuth helper = new HelperActionServicesOAuth(builder.Configuration);
+builder.Services.AddSingleton<HelperActionServicesOAuth>(helper);
+builder.Services.AddAuthentication(helper.GetAuthenticationSchema()).AddJwtBearer(helper.GetJwtBearerOptions());
+
 // Add services to the container.
 
-//Nuevo
+//Añadimos repos y conecciones.
 string connectionString = builder.Configuration.GetConnectionString("SqlAzure");
 builder.Services.AddTransient<RepositoryCentroMedico>();
 builder.Services.AddDbContext<CentroMedicoContext>(option => option.UseSqlServer(connectionString));
@@ -17,6 +23,7 @@ builder.Services.AddDbContext<CentroMedicoContext>(option => option.UseSqlServer
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 // REGISTRAMOS SWAGGER COMO SERVICIO
 builder.Services.AddOpenApiDocument(document =>
 {
@@ -47,7 +54,7 @@ builder.Services.AddOpenApiDocument(document =>
 
 var app = builder.Build();
 
-//Nuevo
+//Configuramos Swagger Web
 app.UseOpenApi();
 //app.UseSwagger();
 app.UseSwaggerUI(options =>
@@ -64,6 +71,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//Agregamos seguridad
+app.UseAuthentication();
 
 app.UseAuthorization();
 

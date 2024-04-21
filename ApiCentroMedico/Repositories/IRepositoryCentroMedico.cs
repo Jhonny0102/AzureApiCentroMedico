@@ -41,7 +41,7 @@ namespace ApiCentroMedico.Repositories
         public void OkPetcion(int idPeticion, int idUsuario, int idEstadoNuevo); //Hecho
         public void OkNoPeticion(int idPeticion); //Hecho
         public List<PeticionesMedicamentoDetallado> GetPeticionesMedicametentosDetallado(); //Hecho
-        public List<MedicamentoYPacienteSInView> GetAllMedicamentoPaciente();
+        public List<MedicamentoYPacienteSInView> GetAllMedicamentoPaciente(); //Hecho
 
         public void OkPeticionMedicamentoActualizar(int idPeti, int idMedicamento, int estado); //Hecho
         public void OkPeticionMedicamentoNuevo(int idPeti, string nombre, string descripcion, int estado); //Hecho

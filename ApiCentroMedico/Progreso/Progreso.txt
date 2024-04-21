@@ -30,6 +30,12 @@ Fecha: 18/04/2024
 2. Cambios de nombre de USUARIO a Admin.
 3. Terminamos con Medicos.
 4. Terminamos con Medicamentos.
-5. Empezando a insertar metodos sueltos y organizarlos **
+5. Empezando a insertar metodos sueltos y organizarlos 
+
+Fecha: 21/04/2024
+1.Revisamos y modificamos los controllers.
+2.Empezamos con seguridad(Helpers , Programa , ModelLogin , Controller Auth)
+3. Terminamos de implementar la seguridad y asiganamos actions con seguridad.
+
 
 Seria bueno comentar al final como va la aplicacion y las apis.

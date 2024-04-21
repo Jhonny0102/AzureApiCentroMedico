@@ -1,5 +1,6 @@
 ﻿using ApiCentroMedico.Models;
 using ApiCentroMedico.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,6 +51,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver los datos de las especialidades de los medicos
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<Especialidades>>> GetEspecialidadesMedico()
@@ -64,6 +66,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para obtener informacion de los estados de citas
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<SeguimientoCita>>> GetEstadosSeguimiento()

@@ -1,5 +1,6 @@
 ﻿using ApiCentroMedico.Models;
 using ApiCentroMedico.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver los datos de un PACIENTE desde RECEPCION (Parametros = todo del PACIENTE) 
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]/{nombre}/{apellido}/{correo}")]
         public async Task<ActionResult<Paciente>> GetPacienteRecepcion(string nombre, string apellido, string correo)
@@ -36,6 +38,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para crear una peticion de alta/baja de un USUAURIO 
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPost]
         [Route("[action]/{idrecepcionista}/{idpaciente}/{nuevoestado}")]
         public async Task<ActionResult> CreatePeticionUsuario(int idrecepcionista, int idpaciente, int nuevoestado)

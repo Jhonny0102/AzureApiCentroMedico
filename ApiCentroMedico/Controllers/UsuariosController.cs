@@ -23,7 +23,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver los usuarios de la bbdd
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
-        [Authorize]
+        
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<Usuario>>> GetUsuarios()
@@ -38,7 +38,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver toda la informacion del USUARIOS de la BBDD mediante IdUsuario
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
-        [Authorize]
+        
         [HttpGet]
         [Route("[action]/{id}")]
         public async Task<ActionResult<Usuario>> FindUsuario(int id)

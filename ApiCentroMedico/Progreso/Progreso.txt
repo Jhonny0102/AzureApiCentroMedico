@@ -35,7 +35,5 @@ Fecha: 18/04/2024
 Fecha: 21/04/2024
 1.Revisamos y modificamos los controllers.
 2.Empezamos con seguridad(Helpers , Programa , ModelLogin , Controller Auth)
-3. Terminamos de implementar la seguridad y asiganamos actions con seguridad.
-
-
-Seria bueno comentar al final como va la aplicacion y las apis.
+3. Terminamos de implementar la seguridad y asiganamos actions con seguridad a los diferentes controllers.
+4. Empezamos con el cliente(Consumidor)

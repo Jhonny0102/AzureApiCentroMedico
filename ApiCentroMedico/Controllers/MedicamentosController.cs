@@ -1,5 +1,6 @@
 ﻿using ApiCentroMedico.Models;
 using ApiCentroMedico.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,6 +52,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver los datos de esa asiganacion de medicamento al paciente (Parametro = IDMEDICAMENTOYPACIENTE)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]/{id}")]
         public async Task<ActionResult<MedicamentoYPaciente>> FindMedicamentoYPaciente(int id)
@@ -65,6 +67,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver todos los datos de MedicamentoPaciente
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<MedicamentoYPacienteSInView>>> GetAllMedicamentoPaciente()
@@ -79,6 +82,7 @@ namespace ApiCentroMedico.Controllers
         /// Método para actualizar la disponibilidad(a BAJA) de un medicamento asigando a un paciente (Parametro = IDMEDICAMENTOPACIENTE)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
         [HttpPut]
         [Route("[action]/{id}")]
         public async Task<ActionResult> UpdateMedicamentoYPaciente(int id)

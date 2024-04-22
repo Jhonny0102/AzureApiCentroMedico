@@ -397,6 +397,12 @@ namespace ApiCentroMedico.Repositories
             return consulta.FirstOrDefault();
         }
 
+        //Metodo que encuentra un usuario mediante correo y contraseña
+        public Usuario GetUser(string correo , string contra)
+        {
+            return this.context.Usuarios.FirstOrDefault(z => z.Correo == correo && z.Contra == contra && z.Id_EstadoUsuario == 1);
+        }
+
         //Metodo para crear PACIENTE
         public void CreatePaciente(string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int medico)
         {

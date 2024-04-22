@@ -47,6 +47,21 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
+        /// Obtiene el información del USUARIO, tabla USUARIOS.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver toda la informacion del USUARIOS de la BBDD mediante IdUsuario
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+
+        [HttpGet]
+        [Route("[action]/{correo}/{contra}")]
+        public async Task<ActionResult<Usuario>> FindUsuarioLowDatos(string correo , string contra)
+        {
+            return this.repo.GetUser(correo,contra);
+        }
+
+        /// <summary>
         /// Obtiene el información del USUARIO DETALLADO.
         /// </summary>
         /// <remarks>

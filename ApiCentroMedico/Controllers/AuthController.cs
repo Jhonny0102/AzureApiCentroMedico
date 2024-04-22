@@ -24,7 +24,7 @@ namespace ApiCentroMedico.Controllers
         /// Obtiene el información del USUARIO(Login), tabla USUARIOS.
         /// </summary>
         /// <remarks>
-        /// Método para devolver toda la informacion del USUARIOS de la BBDD mediante CORREO y CONTRA
+        /// Método para devolver el token.
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
         [HttpPost]

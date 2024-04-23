@@ -51,6 +51,7 @@ namespace ApiCentroMedico.Controllers
 
                 JwtSecurityToken token = new JwtSecurityToken
                     (
+                        claims:informacion,
                         issuer: this.helper.Issuer,
                         audience: this.helper.Audience,
                         signingCredentials: credentials,

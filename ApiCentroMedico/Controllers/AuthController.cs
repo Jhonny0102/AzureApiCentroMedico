@@ -4,7 +4,9 @@ using ApiCentroMedico.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ApiCentroMedico.Controllers
 {
@@ -39,6 +41,14 @@ namespace ApiCentroMedico.Controllers
             else
             {
                 SigningCredentials credentials = new SigningCredentials(this.helper.GetKeyToken(), SecurityAlgorithms.HmacSha256);
+
+                string jsonusuario = JsonConvert.SerializeObject(usuario);
+
+                Claim[] informacion = new[]
+                {
+                    new Claim("Userdata",jsonusuario)
+                };
+
                 JwtSecurityToken token = new JwtSecurityToken
                     (
                         issuer: this.helper.Issuer,

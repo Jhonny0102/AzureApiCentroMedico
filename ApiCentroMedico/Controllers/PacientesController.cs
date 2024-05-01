@@ -208,9 +208,9 @@ namespace ApiCentroMedico.Controllers
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>  
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult> UpdatePaciente(int id, string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int Estado, int tipo)
+        public async Task<ActionResult> UpdatePaciente(Paciente paciente)
         {
-            this.repo.EditPaciente(id, nombre, apellido, correo, contra, telefono, direccion, edad, genero, Estado, tipo);
+            this.repo.EditPaciente(paciente.Id, paciente.Nombre, paciente.Apellido, paciente.Correo, paciente.Contra, paciente.Telefono, paciente.Direccion, paciente.Edad, paciente.Genero, paciente.EstadoUsuario, paciente.TipoUsuario);
             return Ok();
         }
 

@@ -1,5 +1,6 @@
 ﻿using ApiCentroMedico.Data;
 using ApiCentroMedico.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -176,9 +177,6 @@ using System.Data;
 //    delete from medicopaciente
 //	where id_medico=@id
 
-//	delete from peticionesbajas
-//	where id_usuario=@id
-
 //	delete from medicamentopaciente
 //	where id_medico=@id
 
@@ -199,8 +197,8 @@ using System.Data;
 //create procedure sp_delete_usuario
 //(@id int)
 //as
-//    delete from peticionesbajas
-//	where id_usuario=@id
+//    delete from peticionesusuarios
+//	where id_usuario_solicitante=@id
 
 //	--esta consulta de accion de ultimo
 //	delete from usuarios 

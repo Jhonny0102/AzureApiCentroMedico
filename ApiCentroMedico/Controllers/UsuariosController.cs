@@ -115,9 +115,10 @@ namespace ApiCentroMedico.Controllers
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult> CreateUsuario(string nombre, string apellido, string correo, string contra, int tipo)
+        [Route("[action]")]
+        public async Task<ActionResult> CreateUsuario(Usuario user)
         {
-            this.repo.CreateUsuario( nombre, apellido, correo, contra, tipo);
+            this.repo.CreateUsuario( user.Nombre, user.Apellido, user.Correo, user.Contra, user.Id_TipoUsuario);
             return Ok();
         }
 

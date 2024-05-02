@@ -672,9 +672,9 @@ namespace ApiCentroMedico.Repositories
         }
 
         //Metodo para devoler todas las citas.
-        public List<Cita> GetCitasAll()
+        public List<CitaDetallado> GetCitasAll()
         {
-            return this.context.Citas.ToList();
+            return this.context.CitaDetallado.ToList();
         }
 
         //Metodo para encontrar una CITA

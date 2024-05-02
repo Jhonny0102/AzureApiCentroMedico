@@ -26,7 +26,7 @@ namespace ApiCentroMedico.Controllers
         [Authorize]
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<List<Cita>>> GetCitas()
+        public async Task<ActionResult<List<CitaDetallado>>> GetCitas()
         {
             return this.repo.GetCitasAll();
         }
@@ -100,9 +100,9 @@ namespace ApiCentroMedico.Controllers
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [Authorize]
-        [HttpPut]
+        [HttpDelete]
         [Route("[action]/{idpeticion}")]
-        public async Task<ActionResult> DenegarPeticionUsuario(int idpeticion)
+        public async Task<ActionResult> EliminarPeticionUsuario(int idpeticion)
         {
             this.repo.OkNoPeticion(idpeticion);
             return Ok();
@@ -148,9 +148,9 @@ namespace ApiCentroMedico.Controllers
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [Authorize]
-        [HttpPut]
+        [HttpDelete]
         [Route("[action]/{idpeticion}")]
-        public async Task<ActionResult> DenegarPeticionMedicamento(int idpeticion)
+        public async Task<ActionResult> EliminarPeticionMedicamento(int idpeticion)
         {
             this.repo.OkNoPeticionMedicamento(idpeticion);
             return Ok();

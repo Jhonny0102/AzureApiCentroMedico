@@ -131,10 +131,10 @@ namespace ApiCentroMedico.Controllers
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [Authorize]
         [HttpPost]
-        [Route("[action]/{nombre}/{apellido}/{correo}/{contra}/{especialidad}")]
-        public async Task<ActionResult> CreateMedico(string nombre, string apellido, string correo, string contra, int especialidad)
+        [Route("[action]")]
+        public async Task<ActionResult> CreateMedico(Medico medico)
         {
-            this.repo.CreateMedico(nombre,apellido,correo,contra,especialidad);
+            this.repo.CreateMedico(medico.Nombre, medico.Apellido, medico.Correo, medico.Contra, medico.Especialidad);
             return Ok();
         }
 

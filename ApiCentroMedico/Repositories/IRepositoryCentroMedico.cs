@@ -33,7 +33,7 @@ namespace ApiCentroMedico.Repositories
         public UsuarioDetallado FindUsuarioDetallado(int id); //Hecho
 
         public CitaDetalladoModel GetAllCitas(int posicion); //Esto es paginacion
-        public List<Cita> GetCitasAll(); //Hecho
+        public List<CitaDetallado> GetCitasAll(); //Hecho
         public Cita FindCita(int idCita); //Hecho
         public void DeleteCita(int idCita); //Hecho
         public void EditCita(int idCita, DateTime fecha, TimeSpan hora, int idSeguimientoCita, int idMedico, string comentario); //No hace falta

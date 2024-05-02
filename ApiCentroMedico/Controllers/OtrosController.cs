@@ -51,7 +51,6 @@ namespace ApiCentroMedico.Controllers
         /// Método para devolver los datos de las especialidades de los medicos
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
-        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<Especialidades>>> GetEspecialidadesMedico()

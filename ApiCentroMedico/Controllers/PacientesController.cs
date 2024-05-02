@@ -174,11 +174,12 @@ namespace ApiCentroMedico.Controllers
         /// Método para crear un PACIENTE (Recuerda que el Medico se saca del metodo GetIdMedico)
         /// </remarks>
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
-        [Authorize]
         [HttpPost]
-        public async Task<ActionResult> CreatePaciente(string nombre, string apellido, string correo, string contra, int telefono, string direccion, int edad, string genero, int medico)
+        [Route("[action]/{especialidad}")]
+        public async Task<ActionResult> CreatePaciente(Paciente paciente, int especialidad)
         {
-            this.repo.CreatePaciente(nombre, apellido, correo, contra, telefono, direccion, edad, genero, medico);
+            int medico = this.repo.GetIdMedico(especialidad);
+            this.repo.CreatePaciente(paciente.Nombre, paciente.Apellido, paciente.Correo, paciente.Contra, paciente.Telefono, paciente.Direccion, paciente.Edad, paciente.Genero,medico);
             return Ok();
         }
 

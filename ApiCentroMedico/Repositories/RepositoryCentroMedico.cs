@@ -863,13 +863,14 @@ namespace ApiCentroMedico.Repositories
                            where datos.Medico == idmedico && datos.Fecha == fecha && datos.Hora == hora
                            && datos.SeguimientoCita == 3 && datos.IdEstado == 1
                            select datos;
-            if (consulta != null)
+            var cantidadResultados = consulta.Count();
+            if (cantidadResultados > 0)
             {
-                return 0;
+                return 1;
             }
             else
             {
-                return 1;
+                return 0;
             }
 
         }

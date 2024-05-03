@@ -192,10 +192,10 @@ namespace ApiCentroMedico.Controllers
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
         [Authorize]
         [HttpPost]
-        [Route("[action]/{fecha}/{hora}/{idmedico}/{idpaciente}")]
-        public async Task<ActionResult> CreateCitaPaciente(DateTime fecha, TimeSpan hora, int idmedico, int idpaciente)
+        [Route("[action]")]
+        public async Task<ActionResult> CreateCitaPaciente(Cita cita)
         {
-            this.repo.CreateCitaPaciente(fecha, hora, idmedico, idpaciente);
+            this.repo.CreateCitaPaciente(cita.Fecha, cita.Hora, cita.Medico, cita.Paciente);
             return Ok();
         }
 

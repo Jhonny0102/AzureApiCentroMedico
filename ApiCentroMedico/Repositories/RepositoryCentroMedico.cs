@@ -677,6 +677,12 @@ namespace ApiCentroMedico.Repositories
             return this.context.CitaDetallado.ToList();
         }
 
+        //metodo para devolver todas las citas basicas.
+        public List<Cita> GetCitasBasica()
+        {
+            return this.context.Citas.ToList();
+        }
+
         //Metodo para encontrar una CITA
         public Cita FindCita(int idCita)
         {

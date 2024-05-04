@@ -224,10 +224,10 @@ namespace ApiCentroMedico.Controllers
         /// <response code="200">OK. Devuelve el objeto solicitado.</response>  
         [Authorize]
         [HttpPut]
-        [Route("[action]/{idcita}/{fecha}/{hora}")]
-        public async Task<ActionResult> UpdateCitaPaciente(int idcita, DateTime fecha, TimeSpan hora)
+        [Route("[action]")]
+        public async Task<ActionResult> UpdateCitaPaciente(Cita cita)
         {
-            this.repo.UpdateCitaDetalladaPaciente(idcita, fecha, hora);
+            this.repo.UpdateCitaDetalladaPaciente(cita.Id, cita.Fecha, cita.Hora);
             return Ok();
         }
     }

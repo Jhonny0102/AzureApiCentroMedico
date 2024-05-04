@@ -32,6 +32,21 @@ namespace ApiCentroMedico.Controllers
         }
 
         /// <summary>
+        /// Obtiene el conjunto de CITAS basica.
+        /// </summary>
+        /// <remarks>
+        /// Método para devolver todos los datos de las citas basicas
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>   
+        [Authorize]
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<List<Cita>>> GetCitasBasica()
+        {
+            return this.repo.GetCitasBasica();
+        }
+
+        /// <summary>
         /// Obtiene la informacion sobre una CITA.
         /// </summary>
         /// <remarks>

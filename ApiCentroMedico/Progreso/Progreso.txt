@@ -41,3 +41,8 @@ Fecha: 21/04/2024
 Fecha: 23/04/2024
 1. Descargamos newtonjson nugget.
 2. Incluimos datos del usuario en el token , zona AuthController.
+
+Fecha: 06/05/2924
+1. ¿Que tenemos de azure?
+	- Seguridad Api
+	- KeyVault

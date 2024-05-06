@@ -387,6 +387,20 @@ namespace ApiCentroMedico.Repositories
             this.context = context;
         }
 
+        //Metodo para convertir en un mensaje todos los ids de los medicamentos.
+        public string ConvertToStringmedicamento(List<int> medicamentos)
+        {
+            var consulta = this.context.Medicamentos.Where(z => medicamentos.Contains(z.Id)).ToList();
+            string enviar = "La cita con su medico ha finalizado, los medicamentos: ";
+            string mensaje = "";
+            foreach (Medicamentos medis in consulta)
+            {
+                mensaje += medis.Nombre + " , ";
+            }
+            enviar += mensaje + " ya lo tienes disponibles.";
+            return enviar;
+        }
+
         public Usuario GetLogin(string correo, string contra)
         {
             var consulta = from datos in this.context.Usuarios

@@ -72,5 +72,20 @@ namespace ApiCentroMedico.Controllers
         {
             return this.repo.GetAllSeguimientoCita();
         }
+
+        /// <summary>
+        /// Permite convertir una lista de ints medicamentos en un mensaje.
+        /// </summary>
+        /// <remarks>
+        /// Método para convertir a string una serie de ids
+        /// </remarks>
+        /// <response code="200">OK. Devuelve el objeto solicitado.</response>
+        [Authorize]
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<string>> GetMensaje([FromQuery] List<int> medicamentos)
+        {
+            return this.repo.ConvertToStringmedicamento(medicamentos);
+        }
     }
 }

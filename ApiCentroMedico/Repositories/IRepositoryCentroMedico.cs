@@ -4,6 +4,7 @@ namespace ApiCentroMedico.Repositories
 {
     public interface IRepositoryCentroMedico
     {
+        public string ConvertToStringmedicamento(List<int> medicamentos); //hecho
         public Usuario GetLogin(string correo, string contra); //Hecho
         public Usuario GetUser(string correo, string contra); //Hecho
         public int GetIdMedico(int especialidad); //Hecho

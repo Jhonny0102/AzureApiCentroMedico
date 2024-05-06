@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Azure.Security.KeyVault.Secrets;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -7,15 +8,18 @@ namespace ApiCentroMedico.Helpers
 {
     public class HelperActionServicesOAuth
     {
-        public string Issuer { get; set; }
-        public string Audience { get; set; }
-        public string SecretKey { get; set; }
+        public string Issuer;
+        public string Audience;
+        public string SecretKey;
 
-        public HelperActionServicesOAuth(IConfiguration configuration)
+        public HelperActionServicesOAuth(SecretClient secretClient)
         {
-            this.Issuer = configuration.GetValue<string>("ApiOAuth:Issuer");
-            this.Audience = configuration.GetValue<string>("ApiOAuth:Audience");
-            this.SecretKey = configuration.GetValue<string>("ApiOAuth:SecretKey");
+            KeyVaultSecret secretIssuer =  secretClient.GetSecret("secretIssuer");
+            this.Issuer = secretIssuer.Value;
+            KeyVaultSecret secretAudience = secretClient.GetSecret("secretAudience");
+            this.Audience = secretAudience.Value;
+            KeyVaultSecret secretKey = secretClient.GetSecret("secretKey");
+            this.SecretKey = secretKey.Value;
         }
 
         public SymmetricSecurityKey GetKeyToken()

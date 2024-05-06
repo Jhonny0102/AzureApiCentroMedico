@@ -5,18 +5,31 @@ using Microsoft.OpenApi.Models;
 using NSwag.Generation.Processors.Security;
 using NSwag;
 using ApiCentroMedico.Helpers;
+using Azure.Security.KeyVault.Secrets;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+
+//Añadimos configuracion de keyvault.
+builder.Services.AddAzureClients(factory =>
+{
+    factory.AddSecretClient(builder.Configuration.GetSection("KeyVault"));
+});
+SecretClient secretClient = builder.Services.BuildServiceProvider().GetService<SecretClient>();
+KeyVaultSecret secretSqlAzure = await secretClient.GetSecretAsync("secretSqlAzure");
+//KeyVaultSecret secretIssuer = await secretClient.GetSecretAsync("secretIssuer");
+//KeyVaultSecret secretAudience = await secretClient.GetSecretAsync("secretAudience");
+//KeyVaultSecret secretKey = await secretClient.GetSecretAsync("secretKey");
+
 //Agregamos seguridad.
-HelperActionServicesOAuth helper = new HelperActionServicesOAuth(builder.Configuration);
+HelperActionServicesOAuth helper = new HelperActionServicesOAuth(secretClient);
 builder.Services.AddSingleton<HelperActionServicesOAuth>(helper);
 builder.Services.AddAuthentication(helper.GetAuthenticationSchema()).AddJwtBearer(helper.GetJwtBearerOptions());
 
-// Add services to the container.
-
 //Añadimos repos y conecciones.
-string connectionString = builder.Configuration.GetConnectionString("SqlAzure");
+string connectionString = secretSqlAzure.Value;
 builder.Services.AddTransient<RepositoryCentroMedico>();
 builder.Services.AddDbContext<CentroMedicoContext>(option => option.UseSqlServer(connectionString));
 
